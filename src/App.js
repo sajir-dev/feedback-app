@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+const App = () => {
+  const title = "Blog post";
+  const content = "blog post content";
+  const comments = [
+    { id: 1, comment: "comment one" },
+    { id: 2, comment: "comment two" },
+    { id: 3, comment: "comment three" },
+  ];
 
-function App() {
+  const showComments = true;
+  const loader = false;
+
+  if (loader) {
+    return <h3>Loading...</h3>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> {title} </h1>
+      <p> {content} </p>
+      {showComments && (
+        <div>
+          <h5> Comments {comments.length}</h5>
+          <ul>
+            {comments.map((item, index) => {
+              return <li key={index}>{item.comment}</li>;
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
-}
-
+};
 export default App;
