@@ -1,11 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import FeedbackItem from "./components/FeedbackItem"
 
 function App() {
   return (
-    <div className="App">
-        <h1>Feedback UI</h1>
-    </div>
+    <>
+      <Header text = { "title" }/>
+      <div className="container">
+        <FeedbackItem />
+      </div>
+    </>
   );
 }
 
