@@ -20,8 +20,8 @@ const Header = ({ text, bgColor, textColor }) => {
 
 Header.defaultProps = {
   text: "default feedback UI header",
-  bgColor: "blue",
-  textColor: "red"
+  bgColor: 'rgba(0,0,0,0.4)',
+  textColor: "#ff6a95"
 };
 
 Header.propTypes = {

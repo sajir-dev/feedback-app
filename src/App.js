@@ -1,26 +1,51 @@
 import { useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FeedbackData from "./data/FeedbackData";
 import Header from "./components/Header";
+import FeedbackForm from "./components/FeedbackForm";
+import FeedbackStat from "./components/FeedbackStat";
 import FeedbackList from "./components/FeedbackList";
-import FeedbackStat from "./components/FeedbackStat"
-import FeedbackData from "./data/FeedbackData"
+import About from "./pages/About";
+import AboutIconLink from './components/AboutIconLink';
+import Post from "./components/Post";
 
 function App() {
-
-  const [feedbacks, setFeedbacks] = useState(FeedbackData)
+  const [feedback, setFeedbacks] = useState(FeedbackData);
 
   const handleDelete = (id) => {
-    setFeedbacks(feedbacks.filter(feedback => feedback.id !== id ))
-  }
+    setFeedbacks(feedback.filter((item) => item.id !== id));
+  };
+
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4();
+    setFeedbacks([newFeedback, ...feedback]);
+  };
 
   return (
-    <>
-      <Header text={"title"} />
-      <div className="container">
-        <FeedbackStat feedbacks={feedbacks}/>
-        <FeedbackList feedbacks = {feedbacks} handleDelete = {handleDelete} />
-      </div>
-    </>
+    <Router>
+      <Header />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <>
+              <div className="container">
+                <FeedbackForm handleFeedback={addFeedback} />
+                <FeedbackStat feedback={feedback} />
+                <FeedbackList feedback={feedback} handleDelete={handleDelete} />
+                <AboutIconLink />
+              </div>
+            </>
+          }
+        ></Route>
+        <Route path="/about" element={<About />}/>
+        {/* <Route path="/post/:id/:name" element={<Post />}/> */}
+        {/* <Route path="/post" element={<Post />}/> */}
+        <Route path="/post/*" element={<Post />} />
+      </Routes>
+    </Router>
   );
 }
 
